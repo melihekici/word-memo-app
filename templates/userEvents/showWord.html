@@ -1,0 +1,27 @@
+{% extends "home.html" %}
+
+{% block event %}
+    <h3>My Words</h3>
+    {% for w in myWords %}
+        <div class="word-div">
+            <p>Word: {{w.word}}</p>
+            <p>Definition: {{w.definition}}</p>
+            <p>Power: {{w.power}}</p>
+            <button id={{w._id}}>Kelimeyi Sil</button>
+            <hr>
+        </div>
+    {% endfor %}
+    <script>
+        for(div of document.querySelectorAll('.word-div')) {
+            div.querySelector('button').addEventListener('click', function(e) {
+                fetch(
+                    "/del-word",
+                    {method: "POST",
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({word: this.id})}
+                )
+                this.parentElement.innerHTML = '';
+            });
+        }
+    </script>
+{% endblock %}

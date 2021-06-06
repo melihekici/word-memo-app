@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Register{% endblock %}
+{% block content %}
+    <h3>Register</h3>
+    <form action="#" method="POST">
+        <p>Username:</p>
+        <p><input type="text" name="username"/></p>
+        <p>Password:</p>
+        <p><input type="password" name="password"/></p>
+        <p><input type="submit" value="Submit"/></p>
+        <p><input id="log" type="button" value="Login Page"></p>
+    </form>
+    <script>
+        document.querySelector('#log').addEventListener('click', (e) => {
+            location.href = '/login'
+        });
+    </script>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{message}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}{{username}}{% endblock %}
+{% block sign %}
+    <style>
+        .home-menu {
+            display: flex;
+        }
+        .logout {
+            height: fit-content;
+            margin: auto 0 auto 25px;
+        }
+    </style>
+    <div class="home-menu">
+        <p>Welcome, {{user}}</p>
+        <form action="/logout" class="logout">
+            <button type="submit" >Logout</button>
+        </form>
+    </div>
+{% endblock %}
+{% block content %}
+    <style>
+        .event-div {
+            display: flex;
+        }
+        .event {
+            margin: auto;
+        }
+    </style>
+    <div class="event-div">
+        <a class="event" href="/mywords">Show My Words</a>
+        <a class="event" href="/add">Add Word to My Dictionary</a>
+        <a class="event" href="/practice">Practice</a>
+        <a class="event" href="/search">Search Words</a>
+    </div>
+{% endblock %}
+
+{% block event %}
+{% endblock %}

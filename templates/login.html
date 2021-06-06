@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Register{% endblock %}
+{% block sign %}
+    <style>
+        .signup {
+            display: flex;
+            width: fit-content;
+        }
+        .sign-element {
+            margin: 5px 5px;
+        }
+        .inp {
+            width: 50px;
+        }
+    </style>
+    <form action="#" method="POST" class="signup">
+        <p class="sign-element">Username:</p>
+        <p class="sign-element"><input type="text" name="username" class="inp"/></p>
+        <p class="sign-element">Password:</p>
+        <p class="sign-element"><input type="password" name="password" class="inp"/></p>
+        <p class="sign-element"><input type="submit" value="Login"/></p>
+        <p class="sign-element"><button type="button" class="reg">Register</button></p>
+    </form>
+    <script>
+        document.querySelector('.reg').addEventListener('click', (e) => {
+            location.href = '/register'
+        });
+    </script>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{message}}</p>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+{% endblock %}
+{% block content %}
+{% endblock %}

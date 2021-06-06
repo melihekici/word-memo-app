@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Users List{% endblock %}
+{% block content %}
+    {% for user in values %}
+        <p>Name: {{user.username}}, Password: {{user.password}}, Word: {{user.word}}</p>
+    {% endfor %}
+    {% for ww in w %}
+    <p>WID: {{ww._id}}, Word: {{ww.word}}, Definition: {{ww.definition}}, Owner: {{ww.owner}}, Searched: {{ww.searched}}, Practice Point: {{ww.practicePoint}}, Showed In Practice: {{ww.showedInPractice}}, Power: {{ww.power}}</p>
+{% endfor %}
+{% endblock %}

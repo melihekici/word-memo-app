@@ -1,0 +1,59 @@
+{% extends "home.html" %}
+
+{% block event %}
+    <h3>Practice</h3>
+    {% if myWords >= 10 %}
+        <form name="quiz" id="quiz">
+            <div>
+                <p style="font-size: 120%;">Find the word for following definition:</p>
+                <p style="font-size: 150%;">{{chosenWord.definition}}</p>
+                {% for c in choices %}
+                    <p><input type="radio" name="choice" value="{{c[0]}}">{{["A","B","C"][c[0]]}}. {{c[1].word}}</input></p>
+                {% endfor %}
+            </div>
+            <input type="button" name="submit" id="submit" value="Answer">
+            <input type="submit" name="next" id="next" value="Next">
+            <p id="correct" style="display: none;">{{correctIndex}}</p>
+        </form>
+        <script>
+            const checkAnswerButton = document.querySelector('#submit');
+            const correctAnswer = document.querySelector('#correct');
+
+            const askedWordID = '{{chosenWord._id}}';
+            const wrong1 = '{{others[0]}}';
+            const wrong2 = '{{others[1]}}';
+            let result;
+
+            checkAnswerButton.addEventListener('click', function(e) {
+                const choices = document.querySelectorAll('input[name="choice"]')
+                let selection = null;
+                for(c of choices) {
+                    if(c.checked) selection = c.value;
+                };
+                if(selection === correctAnswer.innerHTML) {
+                    correctAnswer.innerHTML = "CORRECT!";
+                    correctAnswer.style.color = "GREEN";
+                    result = true;
+                }else {
+                    correctAnswer.innerHTML = `CORRECT ANSWER WAS ${["A","B","C"][correctAnswer.innerHTML]}`;
+                    correctAnswer.style.color = "RED";
+                    result = false;
+                }
+                correctAnswer.style.display = "";
+                checkAnswerButton.disabled = true;
+                for(c of choices) {
+                    c.disabled = true
+                };
+
+                fetch(
+                    "/update-practice-points",
+                    {method: "POST",
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({word: askedWordID, wrong1: wrong1, wrong2: wrong2, result: result})}
+                )
+            });
+        </script>
+    {% else %}
+        <p>You need to have at least 10 words for practice, you currently have {{myWords}}</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "home.html" %}
+
+{% block event %}
+    <h3>Search</h3>
+    <div>
+        <form id="search-word-form" action="" method="POST">
+            <p for="new-word">Word</p>
+            <input id="new-word" name="new-word" type="text">
+            <button type="submit">Search</button>
+        </form>
+        <p>Definition: </p>
+        <p class="def"></p>
+    </div>
+    <script type="text/javascript">
+        document.querySelector('#search-word-form').addEventListener('submit', async function(e) {
+            e.preventDefault()
+            const searchWord = document.querySelector('#new-word').value
+
+            fetch(`/get-definition/${searchWord}-false`)
+            .then(res => {
+                if(!res.ok) throw Error("Word could not be found!");
+                return res.json();
+            })
+            .then(data => document.querySelector('.def').textContent = data)
+            .catch(err => document.querySelector('.def').textContent = err)
+        });
+    </script>
+{% endblock %}

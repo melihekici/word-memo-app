@@ -1,0 +1,29 @@
+{% extends "home.html" %}
+
+{% block event %}
+    <h3>Add new word</h3>
+    <div>
+        <form id="new-word-form" action="" method="POST">
+            <p for="new-word">Word</p>
+            <input id="new-word" name="new-word" type="text">
+            <button type="submit">Add</button>
+        </form>
+        <p class="def"></p>
+    </div>
+    <script type="text/javascript">
+        document.querySelector('#new-word-form').addEventListener('submit', function(e) {
+            e.preventDefault()
+            const newWord = document.querySelector('#new-word').value
+
+            fetch(`/get-definition/${newWord}-true`)
+            .then(res => {
+                if(res.status === 409) throw Error('Word allready exist in your dictionary');
+                if(res.status === 400) throw Error('Definition for word is not found');
+
+                return res.json();
+            })
+            .then(data => document.querySelector('.def').textContent = data)
+            .catch(err => document.querySelector('.def').textContent = err)
+        });
+    </script>
+{% endblock %}
