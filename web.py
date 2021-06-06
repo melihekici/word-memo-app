@@ -163,6 +163,11 @@ def practice():
             choices = []
             others = []
             correctIndex = None
+        elif(len(myWords) < 3):
+            choices = []
+            correctIndex = None
+            chosenWord = ''
+            others = []
         else:
             random.shuffle(myWords)
             choices = myWords[0:3]
