@@ -31,5 +31,5 @@ A random word definition from your dictionary will appear together with 3 option
 After you answer the question, your words will get plus or minus practice points depending on your answer's beign correct. 
  
 ## Power Attribute for Words
-All words have power attribute that is calculated using below formula: 
+All words have power attribute that is calculated using below formula:  
 Power = # of Times Word is searched / 2  +  # of Times Word is Showed Up in Practice / 4  + Practice Point  
